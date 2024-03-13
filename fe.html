@@ -1,0 +1,193 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div style="display: flex; flex-direction: column; gap: 24px;">
+    <h2>Tesstt</h2>
+    <div style="display: flex; width: 100%; gap: 64px;">
+      <div>
+        <strong>List of Users :</strong>
+        <div id="list_user" style="display: flex; flex-direction: column; gap: 8px; margin: 12px 0px;"></div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 16px;">
+        <div>
+          <span>Nama :</span>
+          <input type="text" name="nama" id="nama">
+        </div>
+        <div>
+          <span>Email :</span>
+          <input type="email" name="email" id="email">
+        </div>
+        <div style="display: flex; gap: 16px;">
+          <button id="add-btn" onclick="addUser()">Add</button>
+          <button style="display: none;" id="cancel-btn" onclick="clickCancel()">Cancel</button>
+          <button style="display: none;" id="edit-btn" onclick="editUser()">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+<script>
+  let books = []
+  let users = []
+  let id_edit = ""
+
+  const getUsers = () => {
+    users = []
+    fetch("http://127.0.0.1:5000/user")
+      .then(resp => {
+        return resp.json()
+      })
+      .then(data => {
+        users = data.data
+        console.log("userrrr", users);
+        // const parent = document.getElementById("list_user")
+        
+        // users.forEach((e, index) => {
+        //   const div = document.createElement('div')
+        //   div.style = "display: flex; gap: 12px;"
+        //   const text = document.createElement('span')
+        //   const btnEdit = document.createElement('button')
+        //   const btnDelete = document.createElement('button')
+        //   btnEdit.textContent = "edit"
+        //   btnDelete.textContent = "delete"
+        //   btnEdit.onclick = () => {
+        //     clickEdit({ id: e._id, name: e.name, email: e.email })
+        //   }
+        //   btnDelete.onclick = () => {
+        //     deleteUser(e._id)
+        //   }
+        //   text.textContent = (index + 1) + ". " + e.name + " (" + e.email + ")"
+        //   div.append(text, btnEdit, btnDelete)
+        //   parent.append(div)
+        // });
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  }
+
+  const addUser = () => {
+    // const form_name = document.getElementById("nama").value
+    // const form_email = document.getElementById("email").value
+    // console.log("clickk", form_name, form_email);
+    // if (form_name != "" && form_email != "") {
+    //   fetch("http://127.0.0.1:8000/playground/user/", {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-type": "application/json; charset=UTF-8",
+    //     },
+    //     body: JSON.stringify({
+    //       name: form_name,
+    //       email: form_email
+    //     }),
+    //     credentials: 'include',
+    //   })
+    //     .then(response => response.json())
+    //     .catch(error => {
+    //       console.error('Error:', error);
+    //     });
+  
+    //   const parent = document.getElementById("list_user")
+    //   setTimeout(() => {
+    //     while (parent.hasChildNodes()) {
+    //       parent.removeChild(parent.firstChild)
+    //     }
+    //     clickCancel()
+    //     getUsers()
+    //   }, 1000);
+    // }
+  }
+
+  const editUser = () => {
+    // const form_name = document.getElementById("nama").value
+    // const form_email = document.getElementById("email").value
+    // console.log("payy", id_edit);
+    // if (form_name != "" && form_email != "") {
+    //   fetch(`http://127.0.0.1:8000/playground/user/?id=${id_edit}`, {
+    //     method: "PUT",
+    //     headers: {
+    //       "Content-type": "application/json; charset=UTF-8",
+    //     },
+    //     body: JSON.stringify({
+    //       name: form_name,
+    //       email: form_email
+    //     }),
+    //     credentials: 'include',
+    //   })
+    //     .then(response => response.json())
+    //     .catch(error => {
+    //       console.error('Error:', error);
+    //     });
+  
+    //   const parent = document.getElementById("list_user")
+    //   setTimeout(() => {
+    //     while (parent.hasChildNodes()) {
+    //       parent.removeChild(parent.firstChild)
+    //     }
+    //     clickCancel()
+    //     getUsers()
+    //   }, 1000);
+    // }
+  }
+
+  const deleteUser = (e) => {
+    // console.log("delete nih", e);
+    // fetch(`http://127.0.0.1:8000/playground/user/?id=${e}`, {
+    //   method: "DELETE",
+    //   headers: {
+    //     "Content-type": "application/json; charset=UTF-8",
+    //   },
+    // })
+    //   .then(response => response.json())
+    //   .catch(error => {
+    //     console.error('Error:', error);
+    //   });
+
+    // const parent = document.getElementById("list_user")
+    // setTimeout(() => {
+    //   while (parent.hasChildNodes()) {
+    //     parent.removeChild(parent.firstChild)
+    //   }
+    //   getUsers()
+    // }, 1000);
+  }
+
+  const clickEdit = (e) => {
+    // id_edit = e.id
+    // const btnAdd = document.getElementById("add-btn")
+    // const btnEdit = document.getElementById("edit-btn")
+    // const btnCancel = document.getElementById("cancel-btn")
+    // btnAdd.style = "display: none;"
+    // btnEdit.style = "display: block;"
+    // btnCancel.style = "display: block;"
+    // console.log("editt nih", e);
+
+    // const form_name = document.getElementById("nama")
+    // const form_email = document.getElementById("email")
+    // form_name.value = e.name
+    // form_email.value = e.email
+  }
+
+  const clickCancel = () => {
+    id_edit = ""
+    const btnAdd = document.getElementById("add-btn")
+    const btnEdit = document.getElementById("edit-btn")
+    const btnCancel = document.getElementById("cancel-btn")
+    btnAdd.style = "display: block;"
+    btnEdit.style = "display: none;"
+    btnCancel.style = "display: none;"
+
+    document.getElementById("nama").value = ""
+    document.getElementById("email").value = ""
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    getUsers();
+  })
+</script>
+</html>
