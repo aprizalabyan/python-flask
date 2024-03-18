@@ -1,0 +1,35 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flask - MongoDB</title>
+</head>
+<body>
+  <div style="display: flex; flex-direction: column; gap: 24px;">
+    <h2>Tesstt</h2>
+    <div style="display: flex; width: 100%; gap: 64px;">
+      <div>
+        <strong>List of Users :</strong>
+        <div id="list_user" style="display: flex; flex-direction: column; gap: 8px; margin: 12px 0px;"></div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 16px;">
+        <div>
+          <span>Nama :</span>
+          <input type="text" name="nama" id="nama">
+        </div>
+        <div>
+          <span>Email :</span>
+          <input type="email" name="email" id="email">
+        </div>
+        <div style="display: flex; gap: 16px;">
+          <button id="add-btn" onclick="addUser()">Add</button>
+          <button style="display: none;" id="cancel-btn" onclick="clickCancel()">Cancel</button>
+          <button style="display: none;" id="edit-btn" onclick="editUser()">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+<script src="fe.js"></script>
+</html>
