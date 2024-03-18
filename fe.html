@@ -2,7 +2,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Flask - MongoDB</title>
 </head>
 <body>
   <div style="display: flex; flex-direction: column; gap: 24px;">
@@ -44,9 +44,7 @@
       })
       .then(data => {
         users = data.data
-        console.log("userrrr", users);
         const parent = document.getElementById("list_user")
-        
         users.forEach((e, index) => {
           const div = document.createElement('div')
           div.style = "display: flex; gap: 12px;"
@@ -55,26 +53,19 @@
           const btnDelete = document.createElement('button')
           btnEdit.textContent = "edit"
           btnDelete.textContent = "delete"
-          btnEdit.onclick = () => {
-            clickEdit({ id: e._id, name: e.name, email: e.email })
-          }
-          btnDelete.onclick = () => {
-            deleteUser(e._id)
-          }
+          btnEdit.onclick = () => { clickEdit({ id: e._id, name: e.name, email: e.email }) }
+          btnDelete.onclick = () => { deleteUser(e._id) }
           text.textContent = (index + 1) + ". " + e.name + " (" + e.email + ")"
           div.append(text, btnEdit, btnDelete)
           parent.append(div)
         });
       })
-      .catch(error => {
-        console.error('Error:', error);
-      });
+      .catch(error => { console.error('Error:', error); });
   }
 
   const addUser = () => {
     const form_name = document.getElementById("nama").value
     const form_email = document.getElementById("email").value
-    console.log("clickk", form_name, form_email);
     if (form_name != "" && form_email != "") {
       fetch("http://127.0.0.1:5000/user", {
         method: "POST",
@@ -85,12 +76,9 @@
           name: form_name,
           email: form_email
         }),
-        // credentials: 'include',
       })
         .then(response => response.json())
-        .catch(error => {
-          console.error('Error:', error);
-        });
+        .catch(error => { console.error('Error:', error); });
   
       const parent = document.getElementById("list_user")
       setTimeout(() => {
@@ -104,84 +92,63 @@
   }
 
   const editUser = () => {
-    // const form_name = document.getElementById("nama").value
-    // const form_email = document.getElementById("email").value
-    // console.log("payy", id_edit);
-    // if (form_name != "" && form_email != "") {
-    //   fetch(`http://127.0.0.1:8000/playground/user/?id=${id_edit}`, {
-    //     method: "PUT",
-    //     headers: {
-    //       "Content-type": "application/json; charset=UTF-8",
-    //     },
-    //     body: JSON.stringify({
-    //       name: form_name,
-    //       email: form_email
-    //     }),
-    //     credentials: 'include',
-    //   })
-    //     .then(response => response.json())
-    //     .catch(error => {
-    //       console.error('Error:', error);
-    //     });
+    const form_name = document.getElementById("nama").value
+    const form_email = document.getElementById("email").value
+    if (form_name != "" && form_email != "") {
+      fetch(`http://127.0.0.1:5000/user?id=${id_edit}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: form_name,
+          email: form_email
+        }),
+      })
+        .then(response => response.json())
+        .catch(error => { console.error('Error:', error); });
   
-    //   const parent = document.getElementById("list_user")
-    //   setTimeout(() => {
-    //     while (parent.hasChildNodes()) {
-    //       parent.removeChild(parent.firstChild)
-    //     }
-    //     clickCancel()
-    //     getUsers()
-    //   }, 1000);
-    // }
+      const parent = document.getElementById("list_user")
+      setTimeout(() => {
+        while (parent.hasChildNodes()) {
+          parent.removeChild(parent.firstChild)
+        }
+        clickCancel()
+        getUsers()
+      }, 1000);
+    }
   }
 
   const deleteUser = (e) => {
-    // console.log("delete nih", e);
-    // fetch(`http://127.0.0.1:8000/playground/user/?id=${e}`, {
-    //   method: "DELETE",
-    //   headers: {
-    //     "Content-type": "application/json; charset=UTF-8",
-    //   },
-    // })
-    //   .then(response => response.json())
-    //   .catch(error => {
-    //     console.error('Error:', error);
-    //   });
+    fetch(`http://127.0.0.1:5000/user?id=${e}`, {
+      method: "DELETE"
+    })
+      .then(response => response.json())
+      .catch(error => { console.error('Error:', error); });
 
-    // const parent = document.getElementById("list_user")
-    // setTimeout(() => {
-    //   while (parent.hasChildNodes()) {
-    //     parent.removeChild(parent.firstChild)
-    //   }
-    //   getUsers()
-    // }, 1000);
+    const parent = document.getElementById("list_user")
+    setTimeout(() => {
+      while (parent.hasChildNodes()) {
+        parent.removeChild(parent.firstChild)
+      }
+      getUsers()
+    }, 1000);
   }
 
   const clickEdit = (e) => {
-    // id_edit = e.id
-    // const btnAdd = document.getElementById("add-btn")
-    // const btnEdit = document.getElementById("edit-btn")
-    // const btnCancel = document.getElementById("cancel-btn")
-    // btnAdd.style = "display: none;"
-    // btnEdit.style = "display: block;"
-    // btnCancel.style = "display: block;"
-    // console.log("editt nih", e);
-
-    // const form_name = document.getElementById("nama")
-    // const form_email = document.getElementById("email")
-    // form_name.value = e.name
-    // form_email.value = e.email
+    id_edit = e.id
+    document.getElementById("add-btn").style = "display: none;"
+    document.getElementById("edit-btn").style = "display: block;"
+    document.getElementById("cancel-btn").style = "display: block;"
+    document.getElementById("nama").value = e.name
+    document.getElementById("email").value = e.email
   }
 
   const clickCancel = () => {
     id_edit = ""
-    const btnAdd = document.getElementById("add-btn")
-    const btnEdit = document.getElementById("edit-btn")
-    const btnCancel = document.getElementById("cancel-btn")
-    btnAdd.style = "display: block;"
-    btnEdit.style = "display: none;"
-    btnCancel.style = "display: none;"
-
+    document.getElementById("add-btn").style = "display: block;"
+    document.getElementById("edit-btn").style = "display: none;"
+    document.getElementById("cancel-btn").style = "display: none;"
     document.getElementById("nama").value = ""
     document.getElementById("email").value = ""
   }
