@@ -45,26 +45,26 @@
       .then(data => {
         users = data.data
         console.log("userrrr", users);
-        // const parent = document.getElementById("list_user")
+        const parent = document.getElementById("list_user")
         
-        // users.forEach((e, index) => {
-        //   const div = document.createElement('div')
-        //   div.style = "display: flex; gap: 12px;"
-        //   const text = document.createElement('span')
-        //   const btnEdit = document.createElement('button')
-        //   const btnDelete = document.createElement('button')
-        //   btnEdit.textContent = "edit"
-        //   btnDelete.textContent = "delete"
-        //   btnEdit.onclick = () => {
-        //     clickEdit({ id: e._id, name: e.name, email: e.email })
-        //   }
-        //   btnDelete.onclick = () => {
-        //     deleteUser(e._id)
-        //   }
-        //   text.textContent = (index + 1) + ". " + e.name + " (" + e.email + ")"
-        //   div.append(text, btnEdit, btnDelete)
-        //   parent.append(div)
-        // });
+        users.forEach((e, index) => {
+          const div = document.createElement('div')
+          div.style = "display: flex; gap: 12px;"
+          const text = document.createElement('span')
+          const btnEdit = document.createElement('button')
+          const btnDelete = document.createElement('button')
+          btnEdit.textContent = "edit"
+          btnDelete.textContent = "delete"
+          btnEdit.onclick = () => {
+            clickEdit({ id: e._id, name: e.name, email: e.email })
+          }
+          btnDelete.onclick = () => {
+            deleteUser(e._id)
+          }
+          text.textContent = (index + 1) + ". " + e.name + " (" + e.email + ")"
+          div.append(text, btnEdit, btnDelete)
+          parent.append(div)
+        });
       })
       .catch(error => {
         console.error('Error:', error);
@@ -72,35 +72,35 @@
   }
 
   const addUser = () => {
-    // const form_name = document.getElementById("nama").value
-    // const form_email = document.getElementById("email").value
-    // console.log("clickk", form_name, form_email);
-    // if (form_name != "" && form_email != "") {
-    //   fetch("http://127.0.0.1:8000/playground/user/", {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-type": "application/json; charset=UTF-8",
-    //     },
-    //     body: JSON.stringify({
-    //       name: form_name,
-    //       email: form_email
-    //     }),
-    //     credentials: 'include',
-    //   })
-    //     .then(response => response.json())
-    //     .catch(error => {
-    //       console.error('Error:', error);
-    //     });
+    const form_name = document.getElementById("nama").value
+    const form_email = document.getElementById("email").value
+    console.log("clickk", form_name, form_email);
+    if (form_name != "" && form_email != "") {
+      fetch("http://127.0.0.1:5000/user", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: form_name,
+          email: form_email
+        }),
+        // credentials: 'include',
+      })
+        .then(response => response.json())
+        .catch(error => {
+          console.error('Error:', error);
+        });
   
-    //   const parent = document.getElementById("list_user")
-    //   setTimeout(() => {
-    //     while (parent.hasChildNodes()) {
-    //       parent.removeChild(parent.firstChild)
-    //     }
-    //     clickCancel()
-    //     getUsers()
-    //   }, 1000);
-    // }
+      const parent = document.getElementById("list_user")
+      setTimeout(() => {
+        while (parent.hasChildNodes()) {
+          parent.removeChild(parent.firstChild)
+        }
+        clickCancel()
+        getUsers()
+      }, 1000);
+    }
   }
 
   const editUser = () => {

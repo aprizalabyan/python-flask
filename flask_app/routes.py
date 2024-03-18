@@ -1,5 +1,6 @@
 from flask import Blueprint, request, make_response, jsonify, render_template
 from .models import user_collection
+from datetime import datetime
 
 bp = Blueprint("routes", __name__)
 
@@ -26,7 +27,20 @@ def user():
         except:
             make_response().status = 500
     elif request.method == "POST":
-        print("postt")
+        try:
+            payload = request.json
+            if payload:
+                new_user = {
+                    "name": payload["name"],
+                    "email": payload["email"],
+                    "createdAt": datetime.now(),
+                    "updatedAt": datetime.now(),
+                }
+                print("postt", new_user)
+                user_collection.insert_one(new_user)
+                make_response().status = 200
+        except:
+            make_response().status = 500
 
     response = jsonify(
         {"status": make_response().status_code, "message": message, "data": data}
