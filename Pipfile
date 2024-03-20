@@ -8,6 +8,7 @@ flask = "*"
 pymongo = "*"
 flask-cors = "*"
 werkzeug = "*"
+python-dotenv = "*"
 
 [dev-packages]
 
