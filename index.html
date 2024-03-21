@@ -6,13 +6,15 @@
 </head>
 <body>
   <div style="display: flex; flex-direction: column; gap: 24px;">
-    <h2>Tesstt</h2>
+    <h2>Flask - MongoDB (CRUD)</h2>
     <div style="display: flex; width: 100%; gap: 64px;">
-      <div>
+      <div style="min-width: 360px;">
         <strong>List of Users :</strong>
+        <span id="loading_user" style="display: none;">Loading...</span>
         <div id="list_user" style="display: flex; flex-direction: column; gap: 8px; margin: 12px 0px;"></div>
       </div>
       <div style="display: flex; flex-direction: column; gap: 16px;">
+        <strong>User form :</strong>
         <div>
           <span>Nama :</span>
           <input type="text" name="nama" id="nama">
@@ -31,5 +33,5 @@
   </div>
 </body>
 
-<script src="fe.js"></script>
+<script src="static/js/fe.js"></script>
 </html>

@@ -4,14 +4,16 @@ let id_edit = "";
 
 const getUsers = () => {
   users = [];
-  fetch("http://127.0.0.1:5000/user")
+  document.getElementById("loading_user").style = "display: block; margin: 12px 0px;"
+  fetch("https://python-flask-wheat-ten.vercel.app/user")
     .then((resp) => {
       return resp.json();
     })
-    .then((data) => {
+    .then((data) => {  
+      document.getElementById("loading_user").style = "display: none;"
       users = data.data;
-      const parent = document.getElementById("list_user");
       users.forEach((e, index) => {
+        const parent = document.getElementById("list_user");
         const div = document.createElement("div");
         div.style = "display: flex; gap: 12px;";
         const text = document.createElement("span");
@@ -39,7 +41,7 @@ const addUser = () => {
   const form_name = document.getElementById("nama").value;
   const form_email = document.getElementById("email").value;
   if (form_name != "" && form_email != "") {
-    fetch("http://127.0.0.1:5000/user", {
+    fetch("https://python-flask-wheat-ten.vercel.app/user", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -69,7 +71,7 @@ const editUser = () => {
   const form_name = document.getElementById("nama").value;
   const form_email = document.getElementById("email").value;
   if (form_name != "" && form_email != "") {
-    fetch(`http://127.0.0.1:5000/user?id=${id_edit}`, {
+    fetch(`https://python-flask-wheat-ten.vercel.app/user?id=${id_edit}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -96,7 +98,7 @@ const editUser = () => {
 };
 
 const deleteUser = (e) => {
-  fetch(`http://127.0.0.1:5000/user?id=${e}`, {
+  fetch(`https://python-flask-wheat-ten.vercel.app/user?id=${e}`, {
     method: "DELETE",
   })
     .then((response) => response.json())
