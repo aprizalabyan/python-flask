@@ -8,8 +8,8 @@ bp = Blueprint("routes", __name__)
 
 @bp.route("/")
 def index():
-    return ""
-    # return render_template("index.html")
+    # return ""
+    return render_template("index.html")
 
 
 @bp.route("/user", methods=["GET", "POST", "PUT", "DELETE"])
